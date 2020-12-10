@@ -18,38 +18,9 @@ part1 = v.count {|i| i == 1} * v.count {|i| i == 3}
 def count(input)
     return 1 if input[1].nil?
 
-    a = input[0]
-    b = input[1]
-    c = input[2]
-    d = input[3]
-    e = input[4]
-
-    return result(input[1..]) if b == a + 3
-
-    if b == a + 2
-        sum = result(input[1..])
-        return sum if c.nil?
-
-        if c == a + 3
-            return sum + result(input[2..])
-        elsif c == a + 2 && !d.nil? && d == a + 3
-            return sum + result(input[2..]) + result(input[3..])
-        end
-    end
-
-    if b == a + 1
-        if c.nil?
-            return result(input[1..])
-        elsif c == a + 3 || c == a + 2 && d.nil?
-            return result(input[1..]) + result(input[2..])
-        elsif c == a + 2 && d == a + 3
-            return result(input[1..]) + result(input[2..]) + result(input[3..])
-        elsif c == a + 2
-            return result(input[1..]) + result(input[2..])
-        else
-            return result(input[1..])
-        end
-    end
+    [1,2,3].map do |i|
+        input[i] && input[i] <= input[0] + 3 ? result(input[i..]) : 0
+    end.sum
 end
 
 def result(input)
@@ -63,3 +34,5 @@ def result(input)
 end
 
 part2 = result(inputs)
+puts part2
+puts part2 == 74049191673856
