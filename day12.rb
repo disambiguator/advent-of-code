@@ -54,24 +54,10 @@ def part2
         when 'W'
             w += amount * Vector[-1, 0]
         when 'L'
-            existing_angle = if w[1].positive?
-                w.angle_with(Vector[1,0])
-            elsif w[0].positive?
-                -w.angle_with(Vector[1,0])
-            elsif w[0].negative?
-                2 * Math::PI - w.angle_with(Vector[1,0])
-            end
-            angle = existing_angle + (amount * Math::PI/180)
+            angle = Math::atan2(w[1], w[0]) + (amount * Math::PI/180)
             w = w.magnitude * Vector[Math::cos(angle), Math::sin(angle)]
         when 'R'
-            existing_angle = if w[1].positive?
-                w.angle_with(Vector[1,0])
-            elsif w[0].positive?
-                -w.angle_with(Vector[1,0])
-            elsif w[0].negative?
-                2 * Math::PI - w.angle_with(Vector[1,0])
-            end
-            angle = existing_angle - (amount * Math::PI/180)
+            angle = Math::atan2(w[1], w[0]) - (amount * Math::PI/180)
             w = w.magnitude * Vector[Math::cos(angle), Math::sin(angle)]
         when 'F'
             pos += amount * w
